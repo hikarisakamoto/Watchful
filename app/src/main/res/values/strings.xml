@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">Watchful</string>
+    <string name="watchedButton">Watch Me</string>
+    <string name="watcherButton">Watch</string>
+    <string name="promptText">Please, tell me your name:</string>
+    <string name="myNameIs">My name is...</string>
+    <string name="submit">Submit</string>
+    <string name="barcode_reader">QrCode Reader</string>
+
+</resources>
