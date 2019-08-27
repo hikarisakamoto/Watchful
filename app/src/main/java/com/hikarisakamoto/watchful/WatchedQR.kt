@@ -216,8 +216,8 @@ class WatchedQR : AppCompatActivity() {
                 watchedName,
                 mCurrentLocation!!.latitude,
                 mCurrentLocation!!.longitude,
-
-                )
+                Geofence { "no" }
+            )
             val firebaseReturnedValue = myRef.push()
             firebaseReturnedValue.setValue(watched)
 
