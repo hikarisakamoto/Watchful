@@ -10,12 +10,16 @@ import androidx.appcompat.app.AppCompatActivity
 import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.common.api.ResolvableApiException
 import com.google.android.gms.location.*
+import com.google.firebase.database.FirebaseDatabase
 import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel
 import kotlinx.android.synthetic.main.activity_watched_qr.*
 import java.text.DateFormat
 import java.util.*
 
 class WatchedQR : AppCompatActivity() {
+
+    var watchedKey: String = ""
+    var watchedName: String = ""
 
     /**
      * Stores parameters for requests to the FusedLocationProviderApi.
@@ -88,8 +92,8 @@ class WatchedQR : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_watched_qr)
-        val watchedKey = intent.getStringExtra("WatchedKey")
-        val watchedName = intent.getStringExtra("WatchedName")
+        watchedKey = intent.getStringExtra("WatchedKey")
+        watchedName = intent.getStringExtra("WatchedName")
 
         val bitmap = QRCodeHelper
             .newInstance(this)
@@ -100,16 +104,16 @@ class WatchedQR : AppCompatActivity() {
         imgWatchedQR.setImageBitmap(bitmap)
 
         // Update values using data stored in the Bundle.
-        updateValuesFromBundle(savedInstanceState)
-
-        mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
-        mSettingsClient = LocationServices.getSettingsClient(this)
-
-        // Kick off the process of building the LocationCallback, LocationRequest, and
-        // LocationSettingsRequest objects.
-        createLocationCallback()
-        createLocationRequest()
-        buildLocationSettingsRequest()
+//        updateValuesFromBundle(savedInstanceState)
+//
+//        mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
+//        mSettingsClient = LocationServices.getSettingsClient(this)
+//
+//        // Kick off the process of building the LocationCallback, LocationRequest, and
+//        // LocationSettingsRequest objects.
+//        createLocationCallback()
+//        createLocationRequest()
+//        buildLocationSettingsRequest()
     }
 
     /**
@@ -206,8 +210,16 @@ class WatchedQR : AppCompatActivity() {
                 Locale.ENGLISH, "%s: %s",
                 mLastUpdateTimeLabel, mLastUpdateTime
             )
+            val database = FirebaseDatabase.getInstance()
+            val myRef = database.getReference("Watched/$watchedName")
+            val watched = Watched(
+                watchedName,
+                mCurrentLocation!!.latitude,
+                mCurrentLocation!!.longitude,
 
-            // TODO ADICIONAR ENVIO PARA O FIREBASE
+                )
+            val firebaseReturnedValue = myRef.push()
+            firebaseReturnedValue.setValue(watched)
 
             Toast.makeText(baseContext, mLatitude, Toast.LENGTH_LONG).show()
             Toast.makeText(baseContext, mLongitude, Toast.LENGTH_LONG).show()
