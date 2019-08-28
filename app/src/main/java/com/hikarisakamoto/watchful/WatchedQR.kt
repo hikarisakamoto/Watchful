@@ -287,12 +287,7 @@ class WatchedQR : AppCompatActivity() {
 
     public override fun onResume() {
         super.onResume()
-        // Within {@code onPause()}, we remove location updates. Here, we resume receiving
-        // location updates if the user has requested them.
-//        if (this!!.mRequestingLocationUpdates) {
         startLocationUpdates()
-//        }
-
         updateWatchedLocation()
     }
 }
