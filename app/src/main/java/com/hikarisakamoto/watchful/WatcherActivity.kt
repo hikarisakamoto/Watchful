@@ -1,5 +1,6 @@
 package com.hikarisakamoto.watchful
 
+import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.view.Window
@@ -93,9 +94,11 @@ class WatcherActivity : AppCompatActivity(), ZXingScannerView.ResultHandler {
         qrCodeScanner.stopCamera()
     }
 
-    override fun handleResult(p0: Result?) {
-        if (p0 != null) {
-            // TODO CHECK CAMERA? GO TO ANOTHER INTENT?
+    override fun handleResult(watchedKey: Result?) {
+        if (watchedKey != null) {
+            val intent = Intent(baseContext, Watching::class.java)
+            intent.putExtra("WatchedKey", watchedKey.text)
+            startActivity(intent)
             resumeCamera()
         }
     }

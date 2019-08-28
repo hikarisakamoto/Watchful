@@ -5,7 +5,6 @@ import android.content.Intent
 import androidx.core.app.JobIntentService
 import com.google.android.gms.location.Geofence
 import com.google.android.gms.location.GeofencingEvent
-import com.google.android.gms.maps.model.LatLng
 
 
 class GeofenceTransitionsJobIntentService : JobIntentService() {
@@ -40,25 +39,22 @@ class GeofenceTransitionsJobIntentService : JobIntentService() {
     }
 
     private fun handleEvent(event: GeofencingEvent) {
-        // 1
         if (event.geofenceTransition == Geofence.GEOFENCE_TRANSITION_ENTER) {
-            // 2
             val watched = getFirstAlert(event.triggeringGeofences)
             val fullName = watched?.fullName
-            val latLng = watched?.latLng
-            if (fullName != null && latLng != null) {
-                // 3
-                sendNotification(this, fullName, latLng)
-            }
+            val latitude = watched?.latitude
+            val longitude = watched?.longitude
+            sendNotification(this, fullName, latitude, longitude)
         }
     }
 
     private fun sendNotification(
         geofenceTransitionsJobIntentService: GeofenceTransitionsJobIntentService,
-        fullName: String,
-        latLng: LatLng
+        fullName: String?,
+        latLng: Double?,
+        longitude: Double?
     ) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+//        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
     private fun getFirstAlert(triggeringGeofences: List<Geofence>): Watched? {

@@ -2,6 +2,7 @@ package com.hikarisakamoto.watchful
 
 import android.Manifest
 import android.annotation.SuppressLint
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
@@ -10,7 +11,6 @@ import android.location.LocationManager
 import android.os.Bundle
 import android.text.TextUtils
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.google.android.gms.location.Geofence
@@ -19,8 +19,7 @@ import com.google.android.gms.location.LocationServices
 import com.google.firebase.database.FirebaseDatabase
 import kotlinx.android.synthetic.main.activity_watched_name.*
 
-
-class WatchedName : AppCompatActivity() {
+class WatchedName : BaseActivity() {
     lateinit var geofencingClient: GeofencingClient
     private val GEOFENCE_RADIUS = 10f
 
@@ -67,13 +66,19 @@ class WatchedName : AppCompatActivity() {
                         .setExpirationDuration(1_000_000)
                         .setTransitionTypes(Geofence.GEOFENCE_TRANSITION_EXIT)
                         .build()
-
                     val watched = Watched(
                         txtWatcherName.text.toString(),
                         location.latitude,
-                        location.longitude,
-                        geofence
+                        location.longitude
                     )
+//                    getRepository().add(watched, success = {
+//                        setResult(Activity.RESULT_OK)
+//                        finish()
+//                    },
+//                        failure = {
+//                            //                            Snackbar.make(it, this, Snackbar.LENGTH_LONG).show()
+//                        })
+
                     val firebaseReturnedValue = myRef.push()
                     firebaseReturnedValue.setValue(watched)
                     val intent = Intent(baseContext, WatchedQR::class.java)

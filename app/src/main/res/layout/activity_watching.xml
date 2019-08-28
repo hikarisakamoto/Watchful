@@ -6,4 +6,87 @@
         android:layout_height="match_parent"
         tools:context=".Watching">
 
+    <TextView
+            android:id="@+id/txtLabelWatchedName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:contentDescription="You are following:"
+            android:text="You are following:"
+            android:textSize="24sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="You are following:" />
+
+    <TextView
+            android:id="@+id/txtWatchedFullName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:contentDescription="WatchedFullName"
+            android:text="WatchedFullName"
+            android:textSize="24sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/txtLabelWatchedName"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="WatchedFullName" />
+
+    <TextView
+            android:id="@+id/txtLabelLatitude"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:contentDescription="Latitude:"
+            android:text="Latitude:"
+            android:textSize="24sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txtLabelWatchedName"
+            tools:text="Latitude:" />
+
+    <TextView
+            android:id="@+id/txtLatitude"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:contentDescription="Latitude"
+            android:text="Latitude"
+            android:textSize="24sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/txtLabelLatitude"
+            app:layout_constraintTop_toBottomOf="@+id/txtWatchedFullName"
+            tools:text="Latitude" />
+
+    <TextView
+            android:id="@+id/txtLabelLongitude"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:contentDescription="Longitude:"
+            android:text="Longitude:"
+            android:textSize="24sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txtLabelLatitude"
+            tools:text="Longitude:" />
+
+    <TextView
+            android:id="@+id/txtLongitude"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:contentDescription="Longitude"
+            android:text="Longitude"
+            android:textSize="24sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/txtLabelLongitude"
+            app:layout_constraintTop_toBottomOf="@+id/txtLatitude"
+            tools:text="Longitude" />
 </androidx.constraintlayout.widget.ConstraintLayout>

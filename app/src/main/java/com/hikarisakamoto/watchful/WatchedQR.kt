@@ -4,7 +4,6 @@ import android.content.IntentSender
 import android.location.Location
 import android.os.Bundle
 import android.os.Looper
-import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.gms.common.api.ApiException
@@ -104,16 +103,16 @@ class WatchedQR : AppCompatActivity() {
         imgWatchedQR.setImageBitmap(bitmap)
 
         // Update values using data stored in the Bundle.
-//        updateValuesFromBundle(savedInstanceState)
-//
-//        mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
-//        mSettingsClient = LocationServices.getSettingsClient(this)
-//
-//        // Kick off the process of building the LocationCallback, LocationRequest, and
-//        // LocationSettingsRequest objects.
-//        createLocationCallback()
-//        createLocationRequest()
-//        buildLocationSettingsRequest()
+        updateValuesFromBundle(savedInstanceState)
+
+        mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
+        mSettingsClient = LocationServices.getSettingsClient(this)
+
+        // Kick off the process of building the LocationCallback, LocationRequest, and
+        // LocationSettingsRequest objects.
+        createLocationCallback()
+        createLocationRequest()
+        buildLocationSettingsRequest()
     }
 
     /**
@@ -211,23 +210,21 @@ class WatchedQR : AppCompatActivity() {
                 mLastUpdateTimeLabel, mLastUpdateTime
             )
             val database = FirebaseDatabase.getInstance()
-            val myRef = database.getReference("Watched/$watchedName")
+            val myRef = database.getReference("Watched/$watchedKey")
             val watched = Watched(
                 watchedName,
                 mCurrentLocation!!.latitude,
-                mCurrentLocation!!.longitude,
-                Geofence { "no" }
+                mCurrentLocation!!.longitude
             )
-            val firebaseReturnedValue = myRef.push()
-            firebaseReturnedValue.setValue(watched)
+            myRef.setValue(watched)
 
-            Toast.makeText(baseContext, mLatitude, Toast.LENGTH_LONG).show()
-            Toast.makeText(baseContext, mLongitude, Toast.LENGTH_LONG).show()
-            Toast.makeText(baseContext, mLastUpdateTime, Toast.LENGTH_LONG).show()
-
-            Log.d("LATITUDE: ", mLatitude)
-            Log.d("LONGITUDE: ", mLongitude)
-            Log.d("TIMESTAMP: ", mLastUpdateTime)
+//            Toast.makeText(baseContext, mLatitude, Toast.LENGTH_LONG).show()
+//            Toast.makeText(baseContext, mLongitude, Toast.LENGTH_LONG).show()
+//            Toast.makeText(baseContext, mLastUpdateTime, Toast.LENGTH_LONG).show()
+//
+//            Log.d("LATITUDE: ", mLatitude)
+//            Log.d("LONGITUDE: ", mLongitude)
+//            Log.d("TIMESTAMP: ", mLastUpdateTime)
         }
     }
 

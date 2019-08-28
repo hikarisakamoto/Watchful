@@ -56,13 +56,12 @@ class GeofenceRepository(private val context: Context) {
     }
 
     private fun buildGeofence(watched: Watched): Geofence? {
-        val latLng = watched.latLng!!
 
         return Geofence.Builder()
             .setRequestId(watched.fullName)
             .setCircularRegion(
-                latLng.latitude,
-                latLng.longitude,
+                watched.latitude,
+                watched.longitude,
                 RADIUS
             )
             .setTransitionTypes(Geofence.GEOFENCE_TRANSITION_EXIT)
